@@ -5,7 +5,6 @@ import "./index.scss";
 
 export default function Shop() {
   const [collections, setCollections] = useState(ShopData);
-  console.log(collections);
 
   return (
     <div>

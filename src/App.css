@@ -1,6 +1,14 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap");
 
+* {
+  box-sizing: border-box;
+}
 body {
   font-family: "Open Sans Condensed", sans-serif;
   padding: 20px 60px;
+}
+
+a {
+  text-decoration: none;
+  color: #000000;
 }
