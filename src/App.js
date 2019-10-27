@@ -7,17 +7,24 @@ import Shop from "./pages/shop";
 import SignInSignUp from "./pages/sign-in-and-sign-up";
 import Header from "./components/header";
 
-import { auth } from "./utils/firebase";
+import { auth, createUserProfileDocument } from "./utils/firebase";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
-    auth.onAuthStateChanged(user => {
-      if (user !== null) {
-        setCurrentUser(user);
+    auth.onAuthStateChanged(async userAuth => {
+      if (userAuth !== null) {
+        const userRef = await createUserProfileDocument(userAuth);
+
+        userRef.onSnapshot(snapshot => {
+          setCurrentUser({
+            id: snapshot.id,
+            ...snapshot.data()
+          });
+        });
+        console.log(currentUser);
       }
-      // console.log(user);
     });
     return () => (auth.onAuthStateChanged = null);
   }, []);
