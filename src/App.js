@@ -16,18 +16,19 @@ function App() {
     auth.onAuthStateChanged(async userAuth => {
       if (userAuth !== null) {
         const userRef = await createUserProfileDocument(userAuth);
-
         userRef.onSnapshot(snapshot => {
           setCurrentUser({
             id: snapshot.id,
             ...snapshot.data()
           });
         });
-        console.log(currentUser);
+      } else {
+        setCurrentUser(null);
       }
     });
     return () => (auth.onAuthStateChanged = null);
   }, []);
+  console.log(currentUser);
 
   return (
     <div className="App">
