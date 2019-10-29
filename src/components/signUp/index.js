@@ -26,13 +26,14 @@ export default function SignUp() {
       return;
     }
 
+    
     try {
       const { user } = await auth.createUserWithEmailAndPassword(
         email,
         password
       );
 
-      await createUserProfileDocument(user, { displayName });
+      await createUserProfileDocument(user, { displayName, password });
 
       setUser({ ...INITIAL_STATE });
     } catch (error) {
