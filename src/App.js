@@ -2,18 +2,19 @@ import React, { useEffect } from "react";
 import { Route, Switch, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { setCurrentUser } from "./redux/user/user.action";
+import { createStructuredSelector } from "reselect";
 import "./App.css";
 
 import HomePage from "./pages/homepage";
 import Shop from "./pages/shop";
-import SignInSignUp from "./pages/sign-in-and-sign-up";
 import Header from "./components/header";
+import SignInSignUp from "./pages/sign-in-and-sign-up";
+import CheckOut from "./pages/checkout";
 
 import { auth, createUserProfileDocument } from "./utils/firebase";
+import { selectCurrentUser } from "./redux/user/user.selectors";
 
 function App({ setUser, currentUser }) {
-  // console.log(props);
-
   useEffect(() => {
     auth.onAuthStateChanged(async userAuth => {
       if (userAuth !== null) {
@@ -30,14 +31,14 @@ function App({ setUser, currentUser }) {
     });
     return () => (auth.onAuthStateChanged = null);
   }, []);
-  console.log(currentUser);
-  // SignInSignUp
+
   return (
     <div className="App">
       <Header />
       <Switch>
         <Route exact path="/" component={HomePage} />
-        <Route exact path="/shop" component={Shop} />
+        <Route path="/shop" component={Shop} />
+        <Route exact path="/checkout" component={CheckOut} />
         <Route
           exact
           path="/signin"
@@ -48,8 +49,8 @@ function App({ setUser, currentUser }) {
   );
 }
 
-const mapStateToPros = state => ({
-  currentUser: state.user.currentUser
+const mapStateToPros = createStructuredSelector({
+  currentUser: selectCurrentUser
 });
 
 const mapDispatchToProps = dispatch => ({
