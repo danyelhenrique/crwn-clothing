@@ -5,3 +5,10 @@ export function toogleCartHidden() {
     type: CartActionsType.TOOGLE_CART_HIDDEN
   };
 }
+
+export function addItem(payload) {
+  return {
+    type: CartActionsType.ADD_ITEM,
+    payload
+  };
+}
