@@ -15,3 +15,21 @@ export function addItemToCart(cartItems, newItem) {
     );
   }
 }
+
+export function clearItemFromCart(cartItems, itemToRemove) {
+  return cartItems.filter(item => item.id !== itemToRemove.id);
+}
+
+export function removeItemFromCart(cartItems, item) {
+  const existingCartItem = cartItems.find(cartItem => cartItem.id === item.id);
+
+  if (existingCartItem.quantity === 1) {
+    return clearItemFromCart(cartItems, item);
+  } else {
+    return cartItems.map(cartItem =>
+      cartItem.id === item.id
+        ? { ...cartItem, quantity: cartItem.quantity - 1 }
+        : cartItem
+    );
+  }
+}
