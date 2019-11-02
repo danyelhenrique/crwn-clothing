@@ -3,7 +3,7 @@ import "./index.scss";
 
 import CollectionItem from "../collectionItem";
 
-export default function PreviewCollection({ title, items }) {
+function PreviewCollection({ title, items }) {
   return (
     <div className="collection-preview">
       <h1 className="title">{title}</h1>
@@ -17,3 +17,5 @@ export default function PreviewCollection({ title, items }) {
     </div>
   );
 }
+
+export default PreviewCollection
