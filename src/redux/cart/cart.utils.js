@@ -1,35 +1,33 @@
-export function addItemToCart(cartItems, newItem) {
-  const existingCartImte = cartItems.find(
-    cartItem => cartItem.id === newItem.id
+export const addItemToCart = (cartItems, cartItemToAdd) => {
+  if (!cartItems) return cartItems;
+
+  const existingCartItem = cartItems.find(
+    cartItem => cartItem.id === cartItemToAdd.id
   );
 
-  if (!existingCartImte) {
-    // if items on cart not have prop quantity return
-    // new array with  prop quantity
-    return [...cartItems, { ...newItem, quantity: 1 }];
-  } else {
+  if (existingCartItem) {
     return cartItems.map(cartItem =>
-      cartItem.id === newItem.id
+      cartItem.id === cartItemToAdd.id
         ? { ...cartItem, quantity: cartItem.quantity + 1 }
         : cartItem
     );
   }
-}
 
-export function clearItemFromCart(cartItems, itemToRemove) {
-  return cartItems.filter(item => item.id !== itemToRemove.id);
-}
+  return [...cartItems, { ...cartItemToAdd, quantity: 1 }];
+};
 
-export function removeItemFromCart(cartItems, item) {
-  const existingCartItem = cartItems.find(cartItem => cartItem.id === item.id);
+export const removeItemFromCart = (cartItems, cartItemToRemove) => {
+  const existingCartItem = cartItems.find(
+    cartItem => cartItem.id === cartItemToRemove.id
+  );
 
   if (existingCartItem.quantity === 1) {
-    return clearItemFromCart(cartItems, item);
-  } else {
-    return cartItems.map(cartItem =>
-      cartItem.id === item.id
-        ? { ...cartItem, quantity: cartItem.quantity - 1 }
-        : cartItem
-    );
+    return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id);
   }
-}
+
+  return cartItems.map(cartItem =>
+    cartItem.id === cartItemToRemove.id
+      ? { ...cartItem, quantity: cartItem.quantity - 1 }
+      : cartItem
+  );
+};

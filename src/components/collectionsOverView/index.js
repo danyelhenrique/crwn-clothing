@@ -8,8 +8,6 @@ import { selectCollectionsForPreview } from "../../redux/shop/shop.selectos";
 import "./index.scss";
 
 function CollectionsOverView({ collections }) {
-  console.log(collections, "ki");
-
   return (
     <div className="collections-overview">
       {collections.map(({ id, ...colletion }) => (
